@@ -1,16 +1,8 @@
 import json
 from evaluate_answer_agent import _evaluate_answer_agent
 from generate_question_agent import _generate_question
-
+import asyncio
 import chainlit as cl
-
-questions = []
-question = ''
-correct_ans = 0
-incorrect_ans = 0
-question_history = []
-difficulty = "NORMAL"
-
 async def main(inpt:str) -> str:
     # Load existing counters from questions.json
     try:
@@ -73,12 +65,8 @@ async def main(inpt:str) -> str:
         print(f"Total correct answers: {correct_ans}")
         print(f"Total incorrect answers: {incorrect_ans}")
     return final_answer
-@cl.on_message
-async def on_message(message: cl.Message):
-    response = message
-    await cl.Message(response).send()
 
-@cl.on_chat_start
-async def on_chat_start(message: cl.Message):
-    response = message
-    await cl.Message(response).send()
+if __name__ == "__main__":
+    
+    asyncio.run(main())
+    
