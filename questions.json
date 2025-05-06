@@ -1,2 +1,22 @@
 [
+    {
+        "serial_number": 1,
+        "correct_answers": 0,
+        "incorrect_answers": 0,
+        "question_data": {
+            "question": "Which of the following is the primary function of the `tools` argument when initializing an OpenAI Assistant using the Assistants API?\n\n(A) Specifying the maximum number of tokens the Assistant can use per interaction.\n(B) Defining the external resources and capabilities the Assistant can leverage, such as code interpreters or custom functions.\n(C) Setting the personality and tone of the Assistant's responses.\n(D) Configuring the Assistant's access permissions to user data.\n",
+            "user_answer": "B",
+            "evaluation": "Correct.\n"
+        }
+    },
+    {
+        "serial_number": 2,
+        "correct_answers": 0,
+        "incorrect_answers": 0,
+        "question_data": {
+            "question": "Okay, here's a multiple-choice question about the OpenAI Agents SDK, designed for a normal difficulty level:\n\nWhich of the following is the primary function of the `Agent` class in the OpenAI Agents SDK?\n\na) To directly execute Python code without any safety checks.\nb) To manage the interaction between a language model, tools, and the environment to achieve a specific goal.\nc) To solely handle the communication between the user and the language model.\nd) To define the data structures used for storing conversation history.\n",
+            "user_answer": "a",
+            "evaluation": "Incorrect.\n"
+        }
+    }
 ]

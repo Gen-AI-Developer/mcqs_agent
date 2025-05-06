@@ -5,6 +5,7 @@ import asyncio
 from user_test_history import _get_correct_answers, _get_incorrect_answers, _get_user_test_history
 
 async def main():
+    difficulty = 'NORMAL'
     # Load existing counters from questions.json
     try:
         with open('questions.json', 'r') as f:
@@ -25,8 +26,11 @@ async def main():
     print("Hello from mcqs-agent!")
     print(f"Current correct answers: {correct_ans}")
     print(f"Current incorrect answers: {incorrect_ans}")
-    
-    question = await _generate_question()
+    if correct_ans > incorrect_ans:
+        difficulty = "HARD"
+    else:
+        difficulty = "NORMAL"
+    question = await _generate_question(difficultiy_leve=difficulty)
     print(question)
     answer = input("You:->")
     final_answer = await _evaluate_answer_agent(single_question=question, user_answer=answer)
