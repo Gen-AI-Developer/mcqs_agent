@@ -5,7 +5,6 @@ import asyncio
 from user_test_history import _get_correct_answers, _get_incorrect_answers, _get_user_test_history
 
 async def main():
-    difficulty = 'NORMAL'
     # Load existing counters from questions.json
     try:
         with open('questions.json', 'r') as f:
@@ -15,37 +14,42 @@ async def main():
                 last_question = questions[-1]
                 correct_ans = last_question['correct_answers']
                 incorrect_ans = last_question['incorrect_answers']
+                question_history = [q['question_data']['question'] for q in questions]
             else:
                 correct_ans = 0
                 incorrect_ans = 0
+                question_history = []
     except FileNotFoundError:
         questions = []
         correct_ans = 0
         incorrect_ans = 0
+        question_history = []
 
     print("Hello from mcqs-agent!")
     print(f"Current correct answers: {correct_ans}")
     print(f"Current incorrect answers: {incorrect_ans}")
+    
     if correct_ans > incorrect_ans:
         difficulty = "HARD"
     else:
         difficulty = "NORMAL"
-    question = await _generate_question(difficultiy_leve=difficulty)
+        
+    question = await _generate_question(difficultiy_level=difficulty,question_history=question_history)
     print(question)
     answer = input("You:->")
     final_answer = await _evaluate_answer_agent(single_question=question, user_answer=answer)
     print(final_answer)
 
-    # Update counters based on the answer
-    if final_answer.strip() == "Correct":
+    # Fix: Update counters based on the exact string match
+    if "Correct" in final_answer:  # Changed from strict equality to substring check
         correct_ans += 1
-    elif final_answer.strip() == "Incorrect":
+    elif "Incorrect" in final_answer:  # Changed from strict equality to substring check
         incorrect_ans += 1
 
     new_question = {
         'serial_number': len(questions) + 1,
-        'correct_answers': correct_ans,
-        'incorrect_answers': incorrect_ans,
+        'correct_answers': correct_ans,  # This will now reflect the updated count
+        'incorrect_answers': incorrect_ans,  # This will now reflect the updated count
         'question_data': {
             'question': question,
             'user_answer': answer,
@@ -55,6 +59,7 @@ async def main():
     print(new_question)
     questions.append(new_question)
 
+    # Save to file with updated counters
     with open('questions.json', 'w') as f:
         json.dump(questions, f, indent=4)
         print("Question data saved successfully")

@@ -18,5 +18,45 @@
             "user_answer": "a",
             "evaluation": "Incorrect.\n"
         }
+    },
+    {
+        "serial_number": 3,
+        "correct_answers": 1,
+        "incorrect_answers": 0,
+        "question_data": {
+            "question": "What is the purpose of the `Tool` abstraction within the OpenAI Agents SDK?\n\na) To automatically optimize the hyperparameters of a language model.\nb) To define and represent external functions or capabilities that an agent can utilize, such as a calculator or a database connector.\nc) To track the cost of running an agent over time.\nd) To provide a graphical user interface for interacting with the agent.\n",
+            "user_answer": "b",
+            "evaluation": "Correct.\n"
+        }
+    },
+    {
+        "serial_number": 4,
+        "correct_answers": 1,
+        "incorrect_answers": 1,
+        "question_data": {
+            "question": "Consider an asynchronous agent built using the OpenAI Agents SDK interacting with a complex system. The agent needs to dynamically choose between three tools: `search_tool(query: str) -> str`, `calculate_tool(expression: str) -> float`, and `report_tool(data: str) -> bool`. The agent is experiencing frequent \"ToolCallError\" exceptions despite the tools themselves functioning correctly in isolation. You suspect the issue lies in the agent's tool selection logic and the environment's observation format, which is a JSON string including both the current system state and recent error messages.\n\nWhich of the following represents the MOST likely root cause of the \"ToolCallError\" exceptions in this scenario?\n\na) The agent is correctly selecting tools but the asynchronous nature of the tools causes race conditions, leading to intermittent failures handled incorrectly by the SDK.\n\nb) The JSON observation is too verbose, exceeding the context window limit of the language model and causing it to hallucinate invalid tool names or arguments.  The Agent is effectively choosing the wrong tool and the error handling isn't sufficient.\n\nc) The `report_tool` has hidden dependencies on specific environment variables that are not being correctly propagated to the execution environment of the tool.\n\nd) The agent's policy is overly cautious and rejects valid tool calls based on misinterpreted error messages within the observation, leading to a self-induced cycle of errors. The policy needs to be more aggressive in its attempts.\n",
+            "user_answer": "d",
+            "evaluation": "Incorrect.\n"
+        }
+    },
+    {
+        "serial_number": 5,
+        "correct_answers": 1,
+        "incorrect_answers": 2,
+        "question_data": {
+            "question": "Which of the following best describes the role of the `ChatCompletion` API (or its equivalent in the OpenAI SDK) when building an agent?\n\na) Solely responsible for converting natural language into executable code.\nb) Primarily used to define the available tools and their functionalities for the agent.\nc) Responsible for interacting with a language model, sending it prompts, and receiving its responses, which guide the agent's actions.\nd) Used exclusively for managing the agent's memory and long-term knowledge storage.\n",
+            "user_answer": "b",
+            "evaluation": "Incorrect.\n"
+        }
+    },
+    {
+        "serial_number": 6,
+        "correct_answers": 1,
+        "incorrect_answers": 3,
+        "question_data": {
+            "question": "Which of the following best describes the purpose of the `OpenAIAgent` class within the OpenAI Agents SDK?\n\na) To provide a low-level interface for directly interacting with OpenAI's models, bypassing the agent framework.\nb) To serve as a pre-built agent designed for general-purpose tasks without the need for customization.\nc) To facilitate the creation of agents that can leverage OpenAI models and tools to accomplish complex tasks, automating reasoning and action selection.\nd) To solely handle the execution and monitoring of tools called by other agent implementations.\n",
+            "user_answer": "d",
+            "evaluation": "Incorrect.\n"
+        }
     }
 ]
