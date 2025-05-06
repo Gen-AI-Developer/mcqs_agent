@@ -2,8 +2,7 @@ import json
 from evaluate_answer_agent import _evaluate_answer_agent
 from generate_question_agent import _generate_question
 import asyncio
-import chainlit as cl
-async def main(inpt:str) -> str:
+async def main() -> str:
     # Load existing counters from questions.json
     try:
         with open('questions.json', 'r') as f:
@@ -24,9 +23,9 @@ async def main(inpt:str) -> str:
         incorrect_ans = 0
         question_history = []
 
-    print("Hello from mcqs-agent!")
-    print(f"Current correct answers: {correct_ans}")
-    print(f"Current incorrect answers: {incorrect_ans}")
+    # print("Hello from mcqs-agent!")
+    # print(f"Current correct answers: {correct_ans}")
+    # print(f"Current incorrect answers: {incorrect_ans}")
     
     if correct_ans > incorrect_ans:
         difficulty = "HARD"
@@ -35,7 +34,7 @@ async def main(inpt:str) -> str:
         
     question = await _generate_question(difficultiy_level=difficulty,question_history=question_history)
     print(question)
-    answer = inpt
+    answer = input("You:->")
     final_answer = await _evaluate_answer_agent(single_question=question, user_answer=answer)
     print(final_answer)
     
@@ -55,15 +54,15 @@ async def main(inpt:str) -> str:
             'evaluation': final_answer
         }
     }
-    print(new_question)
+    # print(new_question)
     questions.append(new_question)
 
     # Save to file with updated counters
     with open('questions.json', 'w') as f:
         json.dump(questions, f, indent=4)
-        print("Question data saved successfully")
-        print(f"Total correct answers: {correct_ans}")
-        print(f"Total incorrect answers: {incorrect_ans}")
+        # print("Question data saved successfully")
+        # print(f"Total correct answers: {correct_ans}")
+        # print(f"Total incorrect answers: {incorrect_ans}")
     return final_answer
 
 if __name__ == "__main__":

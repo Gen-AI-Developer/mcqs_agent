@@ -64,5 +64,19 @@
         "correct_answers": 2,
         "incorrect_answers": 3,
         "question_data": {
-            "question": "Which of the following is the MOST appropriate use case for leveraging the `CodeInterpreter` tool within the OpenAI Agents SDK?\n\na) Real-time data visualization and analysis of complex datasets provided directly within the conversation.\nb) Controlling physical robots and other hardware connected to the internet.\nc) Deploying a trained machine learning model to a production environment.\nd) Generating highly optimized and secure backend code for a web application.\n",
-            "user_answer": 
+            "question": "Which of the following is the most appropriate way to represent the state of an agent's environment when using the OpenAI Agents SDK?\n\na) As a global variable accessible by all parts of the agent.\nb) As a simple string containing only the most recent observation.\nc) As a structured object (e.g., a dictionary or a custom class) that captures relevant information about the environment and its history.\nd) As a series of unstructured log files that are parsed on demand.\n",
+            "user_answer": "c",
+            "evaluation": "Correct.\n"
+        }
+    },
+    {
+        "serial_number": 8,
+        "correct_answers": 2,
+        "incorrect_answers": 4,
+        "question_data": {
+            "question": "Which of the following strategies is MOST effective for preventing an OpenAI Agent built with the Agents SDK from getting stuck in an infinite loop when trying to achieve a specific goal?\n\na) Implement a very large context window for the language model to ensure it remembers all past actions.\nb) Define a clear and measurable success criterion for the agent's goal, and incorporate a termination condition based on this criterion.\nc) Increase the agent's learning rate to encourage it to explore more diverse action sequences.\nd) Rely solely on the language model's inherent ability to break out of loops without explicit intervention.\n",
+            "user_answer": "a",
+            "evaluation": "Incorrect.\n"
+        }
+    }
+]
