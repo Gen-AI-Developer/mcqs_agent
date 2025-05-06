@@ -2,9 +2,8 @@ import json
 from evaluate_answer_agent import _evaluate_answer_agent
 from generate_question_agent import _generate_question
 import asyncio
-from user_test_history import _get_correct_answers, _get_incorrect_answers, _get_user_test_history
-
-async def main():
+import chainlit as cl
+async def main(inpt:str) -> str:
     # Load existing counters from questions.json
     try:
         with open('questions.json', 'r') as f:
@@ -36,10 +35,10 @@ async def main():
         
     question = await _generate_question(difficultiy_level=difficulty,question_history=question_history)
     print(question)
-    answer = input("You:->")
+    answer = inpt
     final_answer = await _evaluate_answer_agent(single_question=question, user_answer=answer)
     print(final_answer)
-
+    
     # Fix: Update counters based on the exact string match
     if "Correct" in final_answer:  # Changed from strict equality to substring check
         correct_ans += 1
@@ -65,6 +64,13 @@ async def main():
         print("Question data saved successfully")
         print(f"Total correct answers: {correct_ans}")
         print(f"Total incorrect answers: {incorrect_ans}")
+    return final_answer
+@cl.on_message
+async def on_message(message: cl.Message):
+    response = message
+    await cl.Message(response).send()
 
-if __name__ == "__main__":
-    asyncio.run(main())
+@cl.on_chat_start
+async def on_chat_start(message: cl.Message):
+    response = message
+    await cl.Message(response).send()
