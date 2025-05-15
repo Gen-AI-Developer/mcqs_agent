@@ -78,5 +78,25 @@
             "user_answer": "a",
             "evaluation": "Incorrect.\n"
         }
+    },
+    {
+        "serial_number": 9,
+        "correct_answers": 2,
+        "incorrect_answers": 5,
+        "question_data": {
+            "question": "Which of the following is the most appropriate data structure to use for storing and managing an agent's short-term memory (conversation history) within the OpenAI Agents SDK, allowing efficient retrieval of recent interactions?\n\na) A Python set, as it prevents duplicate entries.\nb) A Python list, utilizing slicing to maintain a fixed-size window of recent messages.\nc) A Python dictionary with string keys representing timestamps and message objects as values.\nd) A SQLite database for persistent storage and complex querying.\n",
+            "user_answer": "d",
+            "evaluation": "Incorrect.\n"
+        }
+    },
+    {
+        "serial_number": 10,
+        "correct_answers": 3,
+        "incorrect_answers": 5,
+        "question_data": {
+            "question": "Which of the following is the primary responsibility of the `Policy` component within the OpenAI Agents SDK's architecture?\n\na) Executing the code of the tools selected by the agent.\nb) Converting natural language descriptions into structured tool calls and arguments.\nc) Determining which tool, if any, the agent should use based on the current state of the environment and the agent's goal.\nd) Managing the agent's long-term memory and knowledge base.\n",
+            "user_answer": "c",
+            "evaluation": "Correct.\n"
+        }
     }
 ]
