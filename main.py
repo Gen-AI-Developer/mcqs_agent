@@ -1,70 +1,28 @@
 import json
+from time import sleep
 from evaluate_answer_agent import _evaluate_answer_agent
 from generate_question_agent import _generate_question
-import asyncio
-async def main() -> str:
-    # Load existing counters from questions.json
-    try:
-        with open('questions.json', 'r') as f:
-            questions = json.load(f)
-            if questions:
-                # Get the most recent counts from the last question
-                last_question = questions[-1]
-                correct_ans = last_question['correct_answers']
-                incorrect_ans = last_question['incorrect_answers']
-                question_history = [q['question_data']['question'] for q in questions]
-            else:
-                correct_ans = 0
-                incorrect_ans = 0
-                question_history = []
-    except FileNotFoundError:
-        questions = []
-        correct_ans = 0
-        incorrect_ans = 0
-        question_history = []
+import chainlit as cl
 
-    # print("Hello from mcqs-agent!")
-    # print(f"Current correct answers: {correct_ans}")
-    # print(f"Current incorrect answers: {incorrect_ans}")
+@cl.on_chat_start
+async def on_start():
+    test_message : str = """
+    - Total Questions = 10
+    - Passing Question/Marks = 7
+    - The programe will adjust difficulty according to your correct answers
+    - Means difficulty is Directly Proportional to correct answers.
+    - The Program will Automatically stop after 10 Questions.
+
+    Type Start to Initiate the Test/Exam in Open AI Agent SDK, Python Programming
     
-    if correct_ans > incorrect_ans:
-        difficulty = "HARD"
+"""
+ 
+    await cl.Message(content=test_message).send()
+
+@cl.on_message
+async def on_message(message: cl.Message):
+    if message.content.lower() == "start":
+        await cl.Message("Starting the test...").send()
+        # Add your test logic here
     else:
-        difficulty = "NORMAL"
-        
-    question = await _generate_question(difficultiy_level=difficulty,question_history=question_history)
-    print(question)
-    answer = input("You:->")
-    final_answer = await _evaluate_answer_agent(single_question=question, user_answer=answer)
-    print(final_answer)
-    
-    # Fix: Update counters based on the exact string match
-    if "Correct" in final_answer:  # Changed from strict equality to substring check
-        correct_ans += 1
-    elif "Incorrect" in final_answer:  # Changed from strict equality to substring check
-        incorrect_ans += 1
-
-    new_question = {
-        'serial_number': len(questions) + 1,
-        'correct_answers': correct_ans,  # This will now reflect the updated count
-        'incorrect_answers': incorrect_ans,  # This will now reflect the updated count
-        'question_data': {
-            'question': question,
-            'user_answer': answer,
-            'evaluation': final_answer
-        }
-    }
-    # print(new_question)
-    questions.append(new_question)
-
-    # Save to file with updated counters
-    with open('questions.json', 'w') as f:
-        json.dump(questions, f, indent=4)
-        # print("Question data saved successfully")
-        # print(f"Total correct answers: {correct_ans}")
-        # print(f"Total incorrect answers: {incorrect_ans}")
-    return final_answer
-
-if __name__ == "__main__":
-    asyncio.run(main())
-    
+        await cl.Message("Type 'start' to begin the test").send()
